@@ -54,14 +54,14 @@ export default function Home() {
   return (
     <main className={clsx("min-h-screen py-10", bodyFont.className)}>
       {/* Heading */}
-      <div className="max-w-screen-xl mx-auto px-4 md:px-6 h-full">
-        <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">
+      <div className="h-full max-w-screen-xl px-4 mx-auto md:px-6">
+        <h1 className="mb-10 text-2xl font-bold text-center md:text-3xl">
           Markdown Fronmatter Generator
         </h1>
       </div>
 
-      <div className="max-w-screen-xl mx-auto px-4 md:px-6 h-full">
-        <div className="grid auto-rows-fr lg:grid-cols-2 gap-8">
+      <div className="h-full max-w-screen-xl px-4 mx-auto md:px-6">
+        <div className="grid gap-8 auto-rows-fr lg:grid-cols-2">
           {/* Fronmatter form */}
           <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +70,7 @@ export default function Home() {
                   <input
                     type="text"
                     placeholder="Main title"
-                    className="input input-bordered w-full"
+                    className="w-full input input-bordered"
                     {...register("title", { required: true })}
                   />
                   {errors.title && (
@@ -79,7 +79,7 @@ export default function Home() {
                 </FormRow>
                 <FormRow label={"Excerpt"}>
                   <textarea
-                    className="textarea textarea-bordered resize-none h-40"
+                    className="h-40 resize-none textarea textarea-bordered"
                     placeholder="Write something here..."
                     {...register("excerpt", { required: true })}
                   ></textarea>
@@ -91,16 +91,26 @@ export default function Home() {
                   <input
                     type="text"
                     placeholder="Unsplash URL..."
-                    className="input input-bordered w-full"
+                    className="w-full input input-bordered"
                     {...register("imageUrl", { required: true })}
                   />
+                  <label className="label">
+                    <a
+                      href="https://unsplash.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="capitalize btn btn-link btn-xs label-text-alt"
+                    >
+                      Go to Unsplash
+                    </a>
+                  </label>
                   {errors.imageUrl && (
                     <ErrorMessage message={"Image is required"} />
                   )}
                 </FormRow>
                 <FormRow label={"Author"}>
                   <select
-                    className="select select-bordered w-full"
+                    className="w-full select select-bordered"
                     defaultValue={authors.hn}
                     {...register("author", { required: true })}
                   >
@@ -113,13 +123,13 @@ export default function Home() {
                 </FormRow>
               </div>
               <div className="flex flex-col gap-2 mt-4">
-                <button type="submit" className="btn btn-primary w-full">
+                <button type="submit" className="w-full btn btn-primary">
                   Generate Fromatter
                 </button>
                 <button
                   type="button"
                   onClick={onReset}
-                  className="btn btn-accent w-full"
+                  className="w-full btn btn-accent"
                 >
                   Reset
                 </button>
@@ -130,18 +140,18 @@ export default function Home() {
           {/* Result */}
           <div>
             <FormRow label={"Result"}>
-              <div className="relative h-full w-full">
+              <div className="relative w-full h-full">
                 <CopyToClipboard
                   text={result}
                   onCopy={() => setCopy(true)}
                   data-tip={copy ? "Copied" : "Copy"}
                 >
                   <button className="absolute top-2 right-2 tooltip btn btn-ghost">
-                    <ClipboardDocumentIcon className="h-6 w-6" />
+                    <ClipboardDocumentIcon className="w-6 h-6" />
                   </button>
                 </CopyToClipboard>
                 <textarea
-                  className="textarea textarea-bordered resize-none w-full h-full bg-slate-100 py-4"
+                  className="w-full h-full py-4 resize-none textarea textarea-bordered bg-slate-100"
                   placeholder="Markdown will be generated here..."
                   readOnly
                   value={result}
